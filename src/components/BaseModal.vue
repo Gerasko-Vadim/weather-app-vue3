@@ -5,7 +5,7 @@
                 <div v-if="modalActive" class="modal__wrapper">
                     <slot />
                     <div>
-                        <button @click="$emit('close-modal')" class="modal__btn">Close</button>
+                        <button @click="$emit('close-modal')" class="modal__btn">{{ $t("modal.btn") }}</button>
                     </div>
 
                 </div>

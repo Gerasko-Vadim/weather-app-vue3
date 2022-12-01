@@ -1,6 +1,7 @@
 import router from './router'
 import { createApp } from 'vue'
 import App from './App.vue'
+import i18n from './i18n'
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -16,5 +17,6 @@ library.add(faPhone)
 
 createApp(App)
 .use(router)
+.use(i18n)
 .component('font-awesome-icon', FontAwesomeIcon)
 .mount('#app')
