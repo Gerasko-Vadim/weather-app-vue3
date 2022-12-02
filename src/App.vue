@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app" :class="{'app-dart': store.state.theme === 'dark'}">
     <SiteNavigation />
     <RouterView class="flex-1" v-slot="{ Component }">
       <Transition name="page">
@@ -11,7 +11,17 @@
 
 <script setup>
 import { RouterView } from "vue-router";
+import {ref} from "vue"
 import SiteNavigation from "@/components/SiteNavigation.vue";
+import { useStore } from "vuex";
+const store = useStore();
+
+const theme = ref(store.state.theme)
+
+
+
+
+
 </script>
 
 <style lang="scss">
@@ -19,6 +29,10 @@ import SiteNavigation from "@/components/SiteNavigation.vue";
   width: 100vw;
   min-height: 100vh;
   background: $color-primary;
+  transition: background 0.5s ease-out;
+}
+.app-dart{
+  background: #041C32 ;
 }
 
 .page-enter-active {

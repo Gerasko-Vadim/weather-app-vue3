@@ -14,6 +14,7 @@
         class="fa-solid fa-plus icon-plus"
       ></i>
       <LocaleSwitcher />
+      <SwitcherTheme/>
     </div>
   </header>
   <BaseModal :modalActive="modalActive" @close-modal="toggleModal">
@@ -44,6 +45,7 @@
 <script lang="ts" setup>
 import BaseModal from "./BaseModal.vue";
 import LocaleSwitcher from "./LocalSwitcher.vue";
+import SwitcherTheme from "./SwitcherTheme.vue"
 import { uid } from "uid";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { ref } from "vue";

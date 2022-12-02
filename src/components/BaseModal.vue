@@ -44,7 +44,7 @@ defineProps({
         flex-direction: column;
         row-gap: 20px;
         align-self: flex-start;
-        margin-top: 65px;
+        margin-top: 85px;
         max-width: 60%;
         border-radius: 5px;
     }

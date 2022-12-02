@@ -111,7 +111,7 @@ const getSearchResult = () => {
   background: $color-secondary;
   padding: 5px;
   position: absolute;
-  top: 111px;
+  top: 128px;
   height: auto;
   margin-top: 10px;
   list-style-type: none;
