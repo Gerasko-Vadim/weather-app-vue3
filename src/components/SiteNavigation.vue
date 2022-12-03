@@ -23,7 +23,7 @@
       <p class="mb-4">
         {{ $t("modal.1") }}
       </p>
-      <h2 class="modal__title">{{ $t("howit") }}:</h2>
+      <h2 class="modal__title">{{ $t("modal.howit") }}:</h2>
       <ol class="list-decimal list-inside mb-4">
         <li>{{ $t("modal.2") }}</li>
         <li>

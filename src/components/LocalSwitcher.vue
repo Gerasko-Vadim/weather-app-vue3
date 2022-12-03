@@ -1,5 +1,5 @@
 <template>
-    <select v-model="$i18n.locale">
+    <select class="switch-lang" v-model="$i18n.locale">
       <option v-for="(locale, i) in locales" :key="`locale-${i}`" :value="locale">
         {{ locale }}
       </option>
@@ -14,3 +14,15 @@
     },
   };
   </script>
+  <style lang='scss'>
+  .switch-lang{
+    background: transparent;
+    border: 1px solid transparent;
+    font-size: 18px;
+    color: white;
+  }
+
+  .swith-lang:focus{
+    outline: none;
+  }
+  </style>

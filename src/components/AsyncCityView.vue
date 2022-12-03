@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="store.getters.theme">
     <div class="overview">
       <h1 class="city">{{ route.params.city }}</h1>
       <p class="overview__time description">
@@ -26,7 +26,7 @@
         {{ Math.round(weatherData.current.temp) }}&deg;
       </p>
       <p class="description">
-        {{$t('feels')}} {{ Math.round(weatherData.current.feels_like) }} &deg;
+        {{ $t("feels") }} {{ Math.round(weatherData.current.feels_like) }} &deg;
       </p>
       <p class="description overview__time">
         {{ weatherData.current.weather[0].description }}
@@ -41,7 +41,7 @@
     <div class="hourly">
       <div class="hourly__wrapper">
         <h1 class="hourly__title">Hourly Weather</h1>
-        <!-- <div class="hourly__scroll">
+        <div class="hourly__scroll">
           <div
             v-for="hourData in weatherData.hourly"
             :key="hourData.dt"
@@ -49,19 +49,25 @@
           >
             <p class="hourly__item-title">
               {{
-                new Date(hourData.currentTime).toLocaleTimeString("en-us", {
-                  hour: "numeric",
-                })
+                new Date(hourData.currentTime).toLocaleTimeString(
+                  locale[i18nLocale.locale.value],
+                  {
+                    hour: "numeric",
+                  }
+                )
               }}
+              {{ locale[i18nLocale.locale.value] === "ru-RU" ? "ч" : "" }}
             </p>
             <img
               class="sm-icon"
               :src="`http://openweathermap.org/img/wn/${hourData.weather[0].icon}@2x.png`"
               alt=""
             />
-            <p class="hourly__item-title">{{ Math.round(hourData.temp) }}&deg;</p>
+            <p class="hourly__item-title">
+              {{ Math.round(hourData.temp) }}&deg;
+            </p>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
     <div class="line"></div>
@@ -113,6 +119,11 @@ import axios from "axios";
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 
+import { useStore } from "vuex";
+const store = useStore();
+
+const apiKey = import.meta.env.VITE_OPENWEATHER_KEY;
+
 const locale = {
   en: "en-US",
   ru: "ru-RU",
@@ -124,7 +135,7 @@ const route = useRoute();
 const getWeatherData = async () => {
   try {
     const weatherData = await axios.get(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${route.query.lat}&lang=${i18nLocale.locale.value}&lon=${route.query.lng}&appid=04feb8ac876a91f26dfe2023591b80e5&units=metric`
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${route.query.lat}&lang=${i18nLocale.locale.value}&lon=${route.query.lng}&appid=${apiKey}&units=${store.state.theme === 'dark' ? 'metric': 'imperial'}`
     );
 
     //current data & time
@@ -203,6 +214,7 @@ const weatherData = await getWeatherData();
     align-content: flex-start;
     padding: 20px $container-padding;
     row-gap: 10px;
+    width: calc(100vw - ($container-padding * 2));
   }
 
   &__title {
@@ -211,7 +223,6 @@ const weatherData = await getWeatherData();
   }
 
   &__scroll {
-    max-width: calc(100vw - 10%);
     display: flex;
     overflow-x: scroll;
   }

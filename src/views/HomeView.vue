@@ -36,6 +36,9 @@ import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import CityList from "@/components/CityList.vue"
+
+const mapKey = import.meta.env.VITE__MAPBOX_KEY; 
+
 const router = useRouter();
 
 const previewCity = (searchResult) => {
@@ -51,8 +54,6 @@ const previewCity = (searchResult) => {
   });
 };
 
-const ApiKeyMap =
-  "pk.eyJ1IjoidmFkaW1mcm9udCIsImEiOiJjbGIyZjJnbWkwM2xsM3ZvYTI0dHZodzgwIn0.3J-fwEd2Dbfd6w3C_VjpBA";
 const searchQuery = ref("");
 const queryTimeout = ref();
 const mapboxSearchResult = ref();
@@ -62,7 +63,7 @@ const getSearchResult = () => {
   queryTimeout.value = setTimeout(async () => {
     if (searchQuery.value !== "") {
       const result = await axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchQuery.value}.json?access_token=${ApiKeyMap}&types=place&limit=10`
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchQuery.value}.json?access_token=${mapKey}&types=place&limit=10`
       );
       mapboxSearchResult.value = result.data.features;
       console.log(mapboxSearchResult.value);

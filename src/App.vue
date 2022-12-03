@@ -11,16 +11,9 @@
 
 <script setup>
 import { RouterView } from "vue-router";
-import {ref} from "vue"
 import SiteNavigation from "@/components/SiteNavigation.vue";
 import { useStore } from "vuex";
 const store = useStore();
-
-const theme = ref(store.state.theme)
-
-
-
-
 
 </script>
 
