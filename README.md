@@ -6,4 +6,4 @@
 #### Смена языка 
 #### Удаления города 
 
-#[Demo](https://638c5a990bb6095f2432cc39--brilliant-croquembouche-735d25.netlify.app/)
+[Demo](https://638c5a990bb6095f2432cc39--brilliant-croquembouche-735d25.netlify.app/)
