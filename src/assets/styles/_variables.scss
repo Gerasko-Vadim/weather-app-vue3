@@ -6,3 +6,15 @@ $color-secondary:#004E71;
 
 //sixes
 $container-padding: 20%;
+@media screen and (max-width:768px){
+    $container-padding: 15px;
+
+    .container, .navbar, .weekly{
+        padding: 20px $container-padding;
+    }
+
+    .hourly__wrapper{
+        width: calc(100vw - ($container-padding * 2));
+        padding: 20px $container-padding;
+    }
+}

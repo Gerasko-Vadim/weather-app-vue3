@@ -83,4 +83,10 @@ defineProps({
 .modal-wrapper-leave-to {
   transform: scale(0.8);
 }
+
+@media screen and (max-width:768px){
+  .modal__wrapper{
+    max-width: calc(100vw - 30px);
+  }
+}
 </style>

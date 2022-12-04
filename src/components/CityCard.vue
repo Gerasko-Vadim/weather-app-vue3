@@ -7,16 +7,6 @@
       </div>
       <div class="city-card__block-temp">
         <p>{{ Math.round(city.weather.current.temp) }}&deg;</p>
-        <div class="city-card__min-max">
-          <span >
-            H:
-            {{ Math.round(city.weather.current.temp_max) }}&deg;
-          </span>
-          <span >
-            L:
-            {{ Math.round(city.weather.current.temp_min) }}&deg;
-          </span>
-        </div>
       </div>
     </div>
   </div>

@@ -24,7 +24,7 @@
         <Suspense>
           <CityList/>
           <template #fallback>
-            <p>Loading....</p>
+          <Loader/>
           </template>
         </Suspense>
       </div>
@@ -33,11 +33,10 @@
 
 <script setup>
 import { ref } from "vue";
-import axios from "axios";
+import api from "@/services/api"
 import { useRouter } from "vue-router";
+import Loader from "../components/Loader.vue"
 import CityList from "@/components/CityList.vue"
-
-const mapKey = import.meta.env.VITE__MAPBOX_KEY; 
 
 const router = useRouter();
 
@@ -62,11 +61,8 @@ const getSearchResult = () => {
   clearTimeout(queryTimeout.value);
   queryTimeout.value = setTimeout(async () => {
     if (searchQuery.value !== "") {
-      const result = await axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchQuery.value}.json?access_token=${mapKey}&types=place&limit=10`
-      );
+      const result = await api.getAllCities(searchQuery.value);
       mapboxSearchResult.value = result.data.features;
-      console.log(mapboxSearchResult.value);
       return;
     }
     mapboxSearchResult.value = null;

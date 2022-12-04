@@ -1,5 +1,5 @@
 <template>
-  <div v-if="store.getters.theme">
+  <div>
     <div class="overview">
       <h1 class="city">{{ route.params.city }}</h1>
       <p class="overview__time description">
@@ -29,18 +29,31 @@
         {{ $t("feels") }} {{ Math.round(weatherData.current.feels_like) }} &deg;
       </p>
       <p class="description overview__time">
-        {{ weatherData.current.weather[0].description }}
+        {{
+          weatherData.current.weather[0].description.charAt(0).toUpperCase() +
+          weatherData.current.weather[0].description.slice(1)
+        }}
       </p>
       <img
         class="overview__icon"
         :src="`http://openweathermap.org/img/wn/${weatherData.current.weather[0].icon}@2x.png`"
         alt=""
       />
+      <div class="wind">
+        <div class="wind__item">
+            <i class="fa-sharp fa-solid fa-wind icon"></i>
+            {{weatherData.current.wind_speed}}
+        </div>
+        <div class="wind__item">
+          <i class="fa-solid fa-location-arrow icon"></i>
+          {{weatherData.current.wind_deg}}&deg;
+        </div>
+      </div>
     </div>
     <div class="line"></div>
     <div class="hourly">
       <div class="hourly__wrapper">
-        <h1 class="hourly__title">Hourly Weather</h1>
+        <h1 class="hourly__title">{{ $t("hourlyWeather") }}</h1>
         <div class="hourly__scroll">
           <div
             v-for="hourData in weatherData.hourly"
@@ -114,13 +127,10 @@
 </template>
 
 <script setup>
-import router from "@/router";
 import axios from "axios";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-
-import { useStore } from "vuex";
-const store = useStore();
+import api from "@/services/api"
 
 const apiKey = import.meta.env.VITE_OPENWEATHER_KEY;
 
@@ -130,14 +140,12 @@ const locale = {
 };
 
 const i18nLocale = useI18n();
-console.log(i18nLocale.locale.value);
 const route = useRoute();
+const router = useRouter();
+
 const getWeatherData = async () => {
   try {
-    const weatherData = await axios.get(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${route.query.lat}&lang=${i18nLocale.locale.value}&lon=${route.query.lng}&appid=${apiKey}&units=${store.state.theme === 'dark' ? 'metric': 'imperial'}`
-    );
-
+    const weatherData = await api.getWeatherCity({lat:route.query.lat, lang:i18nLocale.locale.value, lon:route.query.lng})
     //current data & time
     const localOffset = new Date().getTimezoneOffset() * 60000;
     const utc = weatherData.data.current.dt * 1000 + localOffset;
@@ -172,6 +180,20 @@ const weatherData = await getWeatherData();
   align-items: center;
   flex: 1;
   padding-top: 40px;
+
+  .wind{
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 15px;
+    font-size: 16px;
+  }
+
+  .icon {
+    color: white;
+  }
+
   &__time {
     margin-top: 5px;
   }

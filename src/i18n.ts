@@ -22,7 +22,8 @@ export default createI18n({
         "btn":"Close"
       },
       "removeCity":"Remove City",
-      "feels":"Feels like"
+      "feels":"Feels like",
+      "hourlyWeather":"Hourly Weather"
     },
     ru: {
       "title": "Местная погода",
@@ -40,7 +41,8 @@ export default createI18n({
         "btn":"Закрыть"
       },
       "removeCity":"Удалить город",
-      "feels":"Ощущается"
+      "feels":"Ощущается",
+      "hourlyWeather":"Почасовая погода"
     }
   },
 });
